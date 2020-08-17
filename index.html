@@ -3,12 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GeoLocation</title>
+    <title>Geolocation+MapBox</title>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css' rel='stylesheet' />
 </head>
 <body>
     <button onclick="getLocation()">getMyLocation</button>
     <div id="output"></div>
     <div id="distance"></div>
+    <hr>
+    <div id='map' style='width: 1300px; height: 600px;'></div>
     <script>
         var x = document.getElementById('output');
         var d = document.getElementById('distance');
@@ -23,6 +27,14 @@
             x.innerHTML = `Latitude: ${position.coords.latitude}, Longitude: ${position.coords.longitude}`;
             var distValue = distance(position.coords.latitude, position.coords.longitude,28.6036483,77.2943863,"K");
             d.innerHTML = `Distance : ${distValue} km `;
+             mapboxgl.accessToken =
+             'pk.eyJ1IjoiaWFta3VuYWxtIiwiYSI6ImNrZHlkMDQybDE4cjIydG9zNGs2bTd2MDEifQ.Bc0HYLzWVYX6-iBvhUtWPw';
+             var map = new mapboxgl.Map({
+             container: 'map',
+             center: [position.coords.longitude, position.coords.latitude],
+             zoom: 15, // starting zoom
+             style: 'mapbox://styles/mapbox/streets-v11'
+             });
         }
         function distance(lat1, lon1, lat2, lon2, unit) {
                 if ((lat1 == lat2) && (lon1 == lon2)) {
