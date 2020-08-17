@@ -6,6 +6,19 @@
     <title>Geolocation+MapBox</title>
     <script src='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css' rel='stylesheet' />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
     <button onclick="getLocation()">getMyLocation</button>
@@ -32,9 +45,12 @@
              var map = new mapboxgl.Map({
              container: 'map',
              center: [position.coords.longitude, position.coords.latitude],
-             zoom: 15, // starting zoom
+             zoom: 18, // starting zoom
              style: 'mapbox://styles/mapbox/streets-v11'
              });
+             var marker = new mapboxgl.Marker()
+             .setLngLat([position.coords.longitude, position.coords.latitude])
+             .addTo(map);
         }
         function distance(lat1, lon1, lat2, lon2, unit) {
                 if ((lat1 == lat2) && (lon1 == lon2)) {
